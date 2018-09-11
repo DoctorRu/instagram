@@ -4,17 +4,17 @@
       <a class="navbar-brand" href="#">Instagram like</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">All posts</a></li>
-      <li><a href="#">Following</a></li>
-      <li><a href="#">Favourites</a></li>
-      <li><a href="#">My posts</a></li>
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
+      <li routerLinkActive="active"><a routerLink="allposts">All posts</a></li>
+      <li routerLinkActive="active"><a routerLink="following">Following</a></li>
+      <li routerLinkActive="active"><a routerLink="favorites">Favourites</a></li>
+      <li routerLinkActive="active"><a routerLink="myposts">My posts</a></li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Sign up</a></li>
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Logout</a></li>
+      <li><a routerLink="#">Sign up</a></li>
+      <li><a routerLink="#">Login</a></li>
+      <li><a routerLink="#">Logout</a></li>
     </ul>
 
   </div>

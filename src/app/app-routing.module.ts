@@ -11,7 +11,7 @@ const appRoutes: Routes = [
   {path: 'allposts', component: AllPostsComponent},
   {path: 'following', component: FollowingComponent},
   {path: 'favorites', component: FavoritesComponent},
-  {path: 'MyPosts', component: MyPostsComponent}
+  {path: 'myposts', component: MyPostsComponent}
 ];
 
 @NgModule({
