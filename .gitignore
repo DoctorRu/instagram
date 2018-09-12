@@ -44,4 +44,4 @@ Thumbs.db
 
 
 # Passwords
-/src/environment/*
+/src/environments/*
