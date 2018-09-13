@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as firebase from 'firebase';
+import {UserService} from '../shared/user.service';
 
 @Component({
     selector: 'app-header',
@@ -9,7 +10,7 @@ import * as firebase from 'firebase';
 export class HeaderComponent implements OnInit {
     isLoggedIn: boolean = false;
 
-    constructor() {
+    constructor(private userService: UserService) {
     }
 
     ngOnInit() {
@@ -20,9 +21,17 @@ export class HeaderComponent implements OnInit {
                 this.isLoggedIn = true;
             } else {
                 this.isLoggedIn = false;
-                firebase.auth().signOut();
             }
         });
+    }
+
+    onLogout() {
+        firebase.auth().signOut()
+            .then(() => {
+                this.userService.destroy(); // deletelocal storage data
+                this.isLoggedIn = false;
+
+            });
     }
 
 }

@@ -12,9 +12,9 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li routerLinkActive="active"><a routerLink="/signup">Sign up</a></li>
-      <li routerLinkActive="active"><a routerLink="/login">Login</a></li>
-      <li *ngIf="isLoggedIn"><a routerLink="#">Logout</a></li>
+      <li routerLinkActive="active" *ngIf="!isLoggedIn"><a routerLink="/signup">Sign up</a></li>
+      <li routerLinkActive="active" *ngIf="!isLoggedIn"><a routerLink="/login">Login</a></li>
+      <li *ngIf="isLoggedIn" (click)="onLogout()"><a routerLink="#">Logout</a></li>
     </ul>
 
   </div>
