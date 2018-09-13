@@ -23,6 +23,7 @@ export class SignUpComponent implements OnInit {
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(userData => {
+                userData.sendEmailVerification();
                 console.log(userData);
             })
             .catch(err => {
