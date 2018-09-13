@@ -9,16 +9,41 @@ import {UserService} from '../shared/user.service';
 })
 export class HeaderComponent implements OnInit {
     isLoggedIn: boolean = false;
+    name: string;
+    uid: string;
+    email: string;
 
     constructor(private userService: UserService) {
     }
 
+
     ngOnInit() {
+
+        this.userService.statusChange.subscribe(userData => {
+            if (userData) {
+                this.name = userData.name;
+                this.email = userData.email;
+                this.uid = userData.uid;
+            } else {
+                this.name = null;
+                this.email = null;
+                this.uid = null;
+            }
+        });
+
 
         firebase.auth().onAuthStateChanged(userData => {
             if (userData && userData.emailVerified) {
                 userData.sendEmailVerification();
                 this.isLoggedIn = true;
+                const user = this.userService.getProffile();
+
+                if (user && user.name) {
+                    this.name = user.name;
+                    this.email = user.email;
+                    this.uid = user.uid;
+                }
+
             } else {
                 this.isLoggedIn = false;
             }
@@ -28,7 +53,7 @@ export class HeaderComponent implements OnInit {
     onLogout() {
         firebase.auth().signOut()
             .then(() => {
-                this.userService.destroy(); // deletelocal storage data
+                this.userService.destroy(); // delete local storage data
                 this.isLoggedIn = false;
 
             });
