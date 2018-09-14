@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {NotificationService} from '../shared/notification.service';
+import {MyFireService} from '../shared/myfire.service';
 
 @Component({
   selector: 'app-my-posts',
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyPostsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private notifier: NotificationService,
+              private myFire: MyFireService) {
+  }
 
   ngOnInit() {
   }
 
+  onFileSelection(event) {
+
+    const fileList: FileList = event.target.files;
+
+    if (fileList.length > 0) {
+
+      const file: File = fileList[0];
+
+      this.myFire.uploadFile(file)
+        .then(data => {
+          this.notifier.display('success', 'Picture successfully upload!');
+          console.log(data['fileUrl']);
+        })
+        .catch(err => {
+            this.notifier.display('error', err.message);
+          }
+        );
+    }
+
+  }
 }
