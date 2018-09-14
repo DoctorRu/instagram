@@ -27,7 +27,7 @@ export class MyPostsComponent implements OnInit {
       this.myFire.uploadFile(file)
         .then(data => {
           this.notifier.display('success', 'Picture successfully upload!');
-          console.log(data['fileUrl']);
+          this.myFire.handleImageUpload(data);
         })
         .catch(err => {
             this.notifier.display('error', err.message);

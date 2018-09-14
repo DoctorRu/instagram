@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
       if (userData && userData.emailVerified) {
         userData.sendEmailVerification();
         this.isLoggedIn = true;
-        const user = this.userService.getProffile();
+        const user = this.userService.getProfile();
 
         if (user && user.name) {
           this.name = user.name;
