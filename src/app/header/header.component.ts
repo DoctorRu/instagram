@@ -55,7 +55,6 @@ export class HeaderComponent implements OnInit {
             .then(() => {
                 this.userService.destroy(); // delete local storage data
                 this.isLoggedIn = false;
-
             });
     }
 
