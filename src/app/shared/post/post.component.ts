@@ -12,7 +12,7 @@ export class PostComponent implements OnInit {
     @Input() imageName: string;
     @Input() displayPostedBy: string;
 
-    defaultImage: string = 'http://via.placeholder.com/150x150';
+    defaultImage = 'http://via.placeholder.com/150x150';
     imageData: any = {};
 
     constructor() {
