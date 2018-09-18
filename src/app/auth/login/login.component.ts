@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
                     return this.myFire.getUserFromDataBase(userData.uid);
 
                 } else {
+                    userData.sendEmailVerification();
+
                     const message = 'Email not verified';
                     this.notifier.display('error', message);
                     firebase.auth().signOut();

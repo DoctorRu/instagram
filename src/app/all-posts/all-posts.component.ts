@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as firebase from 'firebase';
-import _ from 'lodash';
+import {MyFireService} from '../shared/myfire.service';
+import {NotificationService} from '../shared/notification.service';
 
 @Component({
     selector: 'app-all-posts',
@@ -13,7 +14,8 @@ export class AllPostsComponent implements OnInit, OnDestroy {
     allRef: any;
     loadMoreRef: any;
 
-    constructor() {
+    constructor(private myFire: MyFireService,
+                private notifier: NotificationService) {
     }
 
     ngOnInit() {
@@ -36,12 +38,12 @@ export class AllPostsComponent implements OnInit, OnDestroy {
     }
 
     onLoadMore() {
-        if ( this.all.length > 0 ) {
+        if (this.all.length > 0) {
 
             const lastLoaddedPost = this.all[this.all.length - 1];
             const lastLoaddedPostKey = lastLoaddedPost.key;
 
-            this.loadMoreRef = firebase.database().ref('allposts').startAt(null, lastLoaddedPostKey).limitToFirst(2);
+            this.loadMoreRef = firebase.database().ref('allposts').startAt(null, lastLoaddedPostKey).limitToFirst(3 + 1);
 
             this.loadMoreRef.on('child_added', data => {
                 if (data.key === lastLoaddedPostKey) {
@@ -57,12 +59,23 @@ export class AllPostsComponent implements OnInit, OnDestroy {
         }
     }
 
-
-    onFavoritesClicked() {
-
+    onFavoritesClicked(imageData) {
+        this.myFire.handleFavoriteClicked(imageData)
+            .then(data => {
+                this.notifier.display('success', 'Image added to favorites');
+            })
+            .catch(err => {
+                this.notifier.display('error', 'Error adding image to favorites');
+            });
     }
 
-    onFollowClicked() {
-
+    onFollowClicked(imageData) {
+        this.myFire.followUser(imageData.uploadedBy)
+            .then(() => {
+                this.notifier.display('success', 'Following ' + imageData.uploadedBy.name + '!!!');
+            })
+            .catch(err => {
+                this.notifier.display('error', err);
+            });
     }
 }
