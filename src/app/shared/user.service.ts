@@ -13,7 +13,7 @@ export class UserService {
         this.statusChange.emit(userFromDatabase)
     }
 
-    getProffile() {
+    getProfile() {
         const user = localStorage.getItem('user');
         return JSON.parse(user);
     }
