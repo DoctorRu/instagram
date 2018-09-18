@@ -1,5 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as firebase from 'firebase';
+import * as _ from 'lodash';
+
 import {MyFireService} from '../shared/myfire.service';
 import {NotificationService} from '../shared/notification.service';
 
@@ -40,7 +42,7 @@ export class AllPostsComponent implements OnInit, OnDestroy {
     onLoadMore() {
         if (this.all.length > 0) {
 
-            const lastLoaddedPost = this.all[this.all.length - 1];
+            const lastLoaddedPost = _.last(this.all);
             const lastLoaddedPostKey = lastLoaddedPost.key;
 
             this.loadMoreRef = firebase.database().ref('allposts').startAt(null, lastLoaddedPostKey).limitToFirst(3 + 1);
