@@ -45,3 +45,5 @@ Thumbs.db
 
 # Passwords
 /src/environments/*
+/src/firebase-messaging-sw.js
+/functions/*
